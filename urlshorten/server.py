@@ -22,6 +22,9 @@ config_obj = Config()
 app.shorten_config = Config().dataMap
 app.dbconnections=DbConnections.fromConfig(config_obj)
 
+
+URL_PREFIX = "http://localhost:5000/"
+
 def add_analytics_log(long_url,short_url,method):
     """
     log event for analytics
@@ -38,7 +41,8 @@ def bad_request(error):
     return make_response(jsonify( { 'error': 'Bad request', 'pass': "false"} ), 400)
 
 @app.route('/<path:short_url>', methods = ['GET'])
-def redirect_short_url(short_url):   
+def redirect_short_url(short_url):
+    short_url = short_url.strip(URL_PREFIX)   
     if not short_url:
         abort(400)
     url_shorten = shorten.UrlShortener(app.dbconnections)
@@ -57,7 +61,7 @@ def generate_short_url():
     short_url = url_shorten.get_short_url(long_url)
     add_analytics_log(long_url,short_url,method="post")
     status = "true" if short_url else "false"  
-    return jsonify( { 'pass': status, 'url': short_url } ), 201
+    return jsonify( { 'pass': status, 'url': URL_PREFIX+short_url } ), 201
 
 if __name__ == '__main__':
     logging.error("Starting url shorten server.....")

@@ -54,7 +54,7 @@ class DbHandler:
             mysql_cur.execute(sqt_stmt)
             long_url = None
             for row in mysql_cur.fetchall():
-                long_url =  row.get('longurl',None)
+                long_url =  row[0]
             if not long_url:
                 return None    
             return base64.urlsafe_b64decode(long_url)  

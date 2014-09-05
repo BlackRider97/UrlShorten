@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import math
+import logging
 
 BASE = 62
 UPPERCASE_OFFSET = 55

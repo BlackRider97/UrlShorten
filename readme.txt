@@ -66,7 +66,7 @@ Uses:
 Response
 {
   "pass": "true", 
-  "url": "1Z"
+  "url": "http://localhost:5000/1Z"
 }
 
 2. $  curl "http://localhost:5000/1Z"  -X GET
